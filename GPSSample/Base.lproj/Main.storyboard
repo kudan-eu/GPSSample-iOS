@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="d5r-t8-o6t">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Camera View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="CameraViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARV-yM-HCc">
+                                <rect key="frame" x="469" y="72" width="111" height="30"/>
+                                <state key="normal" title="Smoothing: OFF"/>
+                                <connections>
+                                    <action selector="smoothingButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fTZ-ep-7T2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ARV-yM-HCc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="Deg-xA-tXN"/>
+                            <constraint firstItem="ARV-yM-HCc" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="jec-Tx-K0u"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1841" y="916"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="MCF-Jj-F9w">
+            <objects>
+                <viewController id="Nb1-Lu-Icc" customClass="MapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NWH-jw-3W2"/>
+                        <viewControllerLayoutGuide type="bottom" id="xgx-E8-Vlh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="x6Y-Wa-M5k">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RtG-Uz-KYE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wib-Fi-XF9">
+                                <rect key="frame" x="232" y="536" width="137" height="44"/>
+                                <color key="backgroundColor" red="0.27058823529411763" green="0.33333333333333331" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="BbN-Rb-lQT"/>
+                                    <constraint firstAttribute="width" constant="137" id="vSR-Y5-4ez"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="0.9960784912109375" green="0.99215692281723022" blue="0.99215692281723022" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="progressButton:" destination="Nb1-Lu-Icc" eventType="touchUpInside" id="pLr-hN-oHd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to place model, then press Done." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="yQ3-UA-0cf">
+                                <rect key="frame" x="20" y="72" width="560" height="54"/>
+                                <color key="backgroundColor" red="0.27058823529411763" green="0.33333333333333331" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="AWV-A8-TGz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="32"/>
+                                <color key="textColor" red="0.9960784912109375" green="0.99215692281723022" blue="0.99215692281723022" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="80"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wib-Fi-XF9" firstAttribute="centerX" secondItem="RtG-Uz-KYE" secondAttribute="centerX" id="2pP-n6-ICP"/>
+                            <constraint firstAttribute="bottom" secondItem="wib-Fi-XF9" secondAttribute="bottom" constant="20" symbolic="YES" id="AoY-Da-5el"/>
+                            <constraint firstItem="RtG-Uz-KYE" firstAttribute="leading" secondItem="x6Y-Wa-M5k" secondAttribute="leading" id="Hfy-Tw-V4Z"/>
+                            <constraint firstItem="yQ3-UA-0cf" firstAttribute="leading" secondItem="x6Y-Wa-M5k" secondAttribute="leadingMargin" id="JoA-cs-x39"/>
+                            <constraint firstItem="RtG-Uz-KYE" firstAttribute="bottom" secondItem="xgx-E8-Vlh" secondAttribute="top" id="LKR-rC-sFv"/>
+                            <constraint firstItem="yQ3-UA-0cf" firstAttribute="centerX" secondItem="wib-Fi-XF9" secondAttribute="centerX" id="i9O-xt-UPM"/>
+                            <constraint firstItem="wib-Fi-XF9" firstAttribute="top" secondItem="NWH-jw-3W2" secondAttribute="bottom" constant="486" id="ikZ-qc-k0f"/>
+                            <constraint firstItem="yQ3-UA-0cf" firstAttribute="top" secondItem="NWH-jw-3W2" secondAttribute="bottom" constant="8" symbolic="YES" id="rYU-J2-mzv"/>
+                            <constraint firstAttribute="trailing" secondItem="RtG-Uz-KYE" secondAttribute="trailing" id="xqF-TP-nD9"/>
+                            <constraint firstItem="RtG-Uz-KYE" firstAttribute="top" secondItem="x6Y-Wa-M5k" secondAttribute="top" id="zpb-s8-lGp"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ikZ-qc-k0f"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="Clg-hA-8Wk"/>
+                    <connections>
+                        <outlet property="mapView" destination="RtG-Uz-KYE" id="IOj-ng-Ta8"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showGPSDemo" id="A0o-QC-CD8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bjk-9f-INy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1093" y="916"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="V5U-6D-QBs">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d5r-t8-o6t" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Eeh-v0-PSA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nb1-Lu-Icc" kind="relationship" relationship="rootViewController" id="ibK-YG-SvL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5F6-8b-ee2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="281" y="916"/>
+        </scene>
+    </scenes>
+</document>
