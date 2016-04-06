@@ -39,9 +39,9 @@
     
     // Setup the object material.
     ARLightMaterial *modelMaterial = [[ARLightMaterial alloc] init];
-    modelMaterial.texture = modelTexture;
-    modelMaterial.ambient = [ARVector3 vectorWithValuesX:0.5 y:0.5 z:0.5];
-    modelMaterial.diffuse = [ARVector3 vectorWithValuesX:0.5 y:0.5 z:0.5];
+    modelMaterial.colour.texture = modelTexture;
+    modelMaterial.ambient.value = [ARVector3 vectorWithValuesX:0.5 y:0.5 z:0.5];
+    modelMaterial.diffuse.value = [ARVector3 vectorWithValuesX:0.5 y:0.5 z:0.5];
     
     // Apply to the model.
     for (ARMeshNode *meshNode in modelNode.meshNodes) {
