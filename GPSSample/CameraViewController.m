@@ -1,9 +1,12 @@
 #import "CameraViewController.h"
+#import "GPSNode.h"
+#import "GPSManager.h"
+
 @import CoreLocation;
 
 @interface CameraViewController()
 
-@property (nonatomic, strong) ARGPSNode *gpsNode;
+@property (nonatomic, strong) GPSNode *gpsNode;
 
 @end
 
@@ -12,18 +15,19 @@
 - (void)setupContent
 {
     // Initialise and start the GPS Manager.
-    ARGPSManager *gpsManager = [ARGPSManager getInstance];
+    GPSManager *gpsManager = [GPSManager getInstance];
     [gpsManager initialise];
+    [self.cameraView.contentViewPort.camera addChild:gpsManager.world];
     [gpsManager start];
     
     // Initialise a GPSNode with coordinate provided from the map.
-    ARGPSNode *gpsNode = [[ARGPSNode alloc] initWithLocation:self.objectCoordinate];
+   self.gpsNode = [[GPSNode alloc] initWithLocation:self.objectCoordinate];
     
     // Point the GPS Node due east.
-    [gpsNode setBearing:90];
+    [self.gpsNode setBearing:90];
     
     // Must add GPSNode as a child to the GPS Manager world.
-    [gpsManager.world addChild:gpsNode];
+    [gpsManager.world addChild:self.gpsNode];
     
     // Import the model.
     ARModelImporter *modelImporter = [[ARModelImporter alloc] initWithBundled:@"Big_Ben_Low_Poly.armodel"];
@@ -32,7 +36,7 @@
     ARModelNode *modelNode = [modelImporter getNode];
 
     // Add the modelNode as a child to the GPSNode.
-    [gpsNode addChild:modelNode];
+    [self.gpsNode addChild:modelNode];
     
     // Add the texture to the 3D model.
     ARTexture *modelTexture = [[ARTexture alloc] initWithUIImage:[UIImage imageNamed:@"Big_Ben_diffuse"]];
@@ -51,7 +55,6 @@
     // Scale the model to the correct height of Big Ben from model height. Units of the GPSManager world are meters, model is 11008 units high in object space.
     [modelNode scaleByUniform:(96.0 / 11008.0)];
     
-    self.gpsNode = gpsNode;
 }
 
 
@@ -64,6 +67,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [sender setTitle:[NSString stringWithFormat:@"Smoothing:%@", !isMotionInterpolated ? @"ON" : @"OFF"] forState:UIControlStateNormal];
     });
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [[GPSManager getInstance] deinitialise];
 }
 
 @end

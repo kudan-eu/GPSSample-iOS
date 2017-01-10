@@ -18,6 +18,8 @@
 		22D799781BB2B9C9003454D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22D799761BB2B9C9003454D7 /* LaunchScreen.storyboard */; };
 		22D7998A1BB2C9A5003454D7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D799891BB2C9A5003454D7 /* libc++.tbd */; };
 		52FA34F91BE124F600F562FD /* KudanAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52FA34F81BE124F600F562FD /* KudanAR.framework */; };
+		E26227E61E2400B40005D4CC /* GPSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E26227E31E2400B40005D4CC /* GPSManager.m */; };
+		E26227E71E2400B40005D4CC /* GPSNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E26227E51E2400B40005D4CC /* GPSNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,10 @@
 		22D799791BB2B9C9003454D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22D799891BB2C9A5003454D7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		52FA34F81BE124F600F562FD /* KudanAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KudanAR.framework; sourceTree = "<group>"; };
+		E26227E21E2400B40005D4CC /* GPSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSManager.h; sourceTree = "<group>"; };
+		E26227E31E2400B40005D4CC /* GPSManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSManager.m; sourceTree = "<group>"; };
+		E26227E41E2400B40005D4CC /* GPSNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSNode.h; sourceTree = "<group>"; };
+		E26227E51E2400B40005D4CC /* GPSNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,10 @@
 				2277588C1BC415F5000E99B8 /* MapViewController.m */,
 				22D7996E1BB2B9C9003454D7 /* CameraViewController.h */,
 				22D7996F1BB2B9C9003454D7 /* CameraViewController.m */,
+				E26227E21E2400B40005D4CC /* GPSManager.h */,
+				E26227E31E2400B40005D4CC /* GPSManager.m */,
+				E26227E41E2400B40005D4CC /* GPSNode.h */,
+				E26227E51E2400B40005D4CC /* GPSNode.m */,
 				22D799711BB2B9C9003454D7 /* Main.storyboard */,
 				22D799741BB2B9C9003454D7 /* Assets.xcassets */,
 				22D799761BB2B9C9003454D7 /* LaunchScreen.storyboard */,
@@ -180,9 +190,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D799701BB2B9C9003454D7 /* CameraViewController.m in Sources */,
+				E26227E61E2400B40005D4CC /* GPSManager.m in Sources */,
 				22D7996D1BB2B9C9003454D7 /* AppDelegate.m in Sources */,
 				22D7996A1BB2B9C9003454D7 /* main.m in Sources */,
 				2277588D1BC415F5000E99B8 /* MapViewController.m in Sources */,
+				E26227E71E2400B40005D4CC /* GPSNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
