@@ -1,11 +1,12 @@
 #import "GPSManager.h"
 #import "GPSNode.h"
 
-static GPSManager *gpsManager;
-
 @interface GPSManager ()
-@property (nonatomic, strong) CLLocation *previousUsedLocation;
+@property (nonatomic, strong) CLLocation *previouslyUsedLocation;
+@property (nonatomic, readwrite) BOOL initialised;
 @end
+
+NSString * const GPSWorldName = @"GPSWorld";
 
 @implementation GPSManager
 
@@ -35,27 +36,26 @@ double RadiansToDegrees(double radians) {return radians * 180.0 / M_PI;};
     return fmod( RadiansToDegrees( radiansBearing ) + 180, 360 );
 }
 
-///Returns singleton GPS Manager. Initialises GPS Manager if nil.
 + (GPSManager *)getInstance
 {
-    if (gpsManager == nil) {
-        gpsManager = [[GPSManager alloc] init];
-        [gpsManager initialise];
-    }
-    return gpsManager;
+    static dispatch_once_t once;
+    static GPSManager *manager;
+    dispatch_once(&once, ^ {
+        manager = [[GPSManager alloc] init];
+        manager.initialised = NO;
+    });
+    return manager;
 }
 
-//Initialises GPS Manager.
 - (void)initialise
 {
     // init instance variables.
-    _world = [ARWorld nodeWithName:@"GPS world"];
-    self.previousUsedLocation = [CLLocation new];
+    self.world = [ARWorld nodeWithName:GPSWorldName];
+    self.previouslyUsedLocation = [CLLocation new];
     
     // Create the location manager on the main thread to ensure delegate methods always get called.
     dispatch_queue_t main = dispatch_get_main_queue();
     dispatch_block_t block = ^{
-        
         self.locationManager = [CLLocationManager new];
     };
     
@@ -77,63 +77,60 @@ double RadiansToDegrees(double radians) {return radians * 180.0 / M_PI;};
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.delegate = self;
     
-    // Init gyro manager.
+    // Init gyro manager and setup its reference frame.
     ARGyroManager *gyroManager = [ARGyroManager getInstance];
     [gyroManager initialise];
     gyroManager.gyroReferenceFrame = CMAttitudeReferenceFrameXTrueNorthZVertical;
     
     // Set up manager.
-    _world.visible = NO;
+    self.world.visible = NO;
+    self.initialised = YES;
 }
 
-//Deinitialises GPS manager
 - (void)deinitialise
 {
-    self.locationManager = nil;
+    self.initialised = NO;
     [self stop];
-    _world = [ARWorld nodeWithName:@"GPS world"];
-    gpsManager = nil;
+    self.locationManager = nil;
+    self.world = [ARWorld nodeWithName:GPSWorldName];
 }
 
-//Starts GPS Manager, Gyro manager and ands GPS Manager to ARRenderer delegate
 - (void)start
 {
+    if (!self.initialised) {
+        [self initialise];
+    }
     [self.locationManager startUpdatingLocation];
     
-    _world.visible = YES;
+    self.world.visible = YES;
     
     [[ARGyroManager getInstance] start];
-    
     [[ARRenderer getInstance] addDelegate:self];
 }
 
-//Stops GPS Manager, Gyro Manager and removes GPS Manager from ARRenderer delegate
 - (void)stop
 {
     [self.locationManager stopUpdatingLocation];
     
-    _world.visible = NO;
+    self.world.visible = NO;
     
     [[ARGyroManager getInstance] stop];
-    
     [[ARRenderer getInstance] removeDelegate:self];
 }
 
-//ARRenderer delegate method called before rendering each frame
+/// ARRenderer delegate method called before rendering each frame, here we make sure that our orientation matches that of ARGyroManager
 - (void)rendererPreRender
 {
-    
     [self updateNode];
 }
 
-//Updates world orientation using Gyro Managers world orientation
+/// Updates world orientation using ARGyroManager's world orientation
 - (void)updateNode
 {
-    
-    _world.orientation = [ARGyroManager getInstance].world.orientation;
+    self.world.orientation = [ARGyroManager getInstance].world.orientation;
 }
 
-//Location manager delegate method, updates GPS nodes positions in camera if the user has moved from their previous location.
+/// Location manager delegate method, updates GPSNodes' positions in camera if the user has moved from their previous location.
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
     CLLocation* location = [locations lastObject];
@@ -141,30 +138,29 @@ double RadiansToDegrees(double radians) {return radians * 180.0 / M_PI;};
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     double updateTimeInterval = 15.0;
     
-    if (fabs(howRecent) < updateTimeInterval && [_previousUsedLocation distanceFromLocation:location] != 0) {
+    if (fabs(howRecent) < updateTimeInterval && [self.previouslyUsedLocation distanceFromLocation:location] != 0) {
         // If the event is recent and different to previous position.
         
-        _previousUsedLocation = location;
+        self.previouslyUsedLocation = location;
         
         // Update GPSNode positions relative to the camera.
         for (ARNode *node in self.world.children) {
             
             if ([node respondsToSelector:@selector(updateWorldPosition)] == YES) {
-                
                 [node performSelector:@selector(updateWorldPosition)];
             }
         }
     }
 }
 
-//Location manager delegate method, called if location manager fails
+/// Location manager delegate method, called if location manager fails
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"Error while getting core location : %@",[error localizedFailureReason]);
     [manager stopUpdatingLocation];
 }
 
-//Returns the most recent update of the device location.
+/// Returns the most recent update of the device location.
 - (CLLocation *)getCurrentLocation
 {
     return self.locationManager.location;

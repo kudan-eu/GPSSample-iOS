@@ -10,7 +10,7 @@
  */
 @property (strong, nonatomic) CLLocation *objectCoordinate;
 
-- (IBAction)smoothingButton:(id)sender;
+- (IBAction)smoothingButton:(UIButton *)sender;
 
 @end
 
